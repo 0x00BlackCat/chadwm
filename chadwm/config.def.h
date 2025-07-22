@@ -67,11 +67,11 @@ static const char *colors[][3]      = {
 //static char *tags[] = {"", "", "", "", ""};
 static char *tags[] = {"one", "two", "three", "four", "five", "six"};
 
-static const char* eww[] = { "eww", "open" , "eww", NULL };
+static const char* wallpaper[] = { "wallpaperscript.sh", NULL };
 
 static const Launcher launchers[] = {
     /* command     name to display */
-    { eww,         "" },
+    { wallpaper,         "" },
 };
 
 static const int tagschemes[] = {
