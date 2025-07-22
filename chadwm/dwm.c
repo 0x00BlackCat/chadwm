@@ -1,3 +1,4 @@
+
 /* See LICENSE file for copyright and license details.
  *
  * dynamic window manager is designed like any other X client as well. It is
@@ -103,6 +104,7 @@ enum {
   SchemeTag3,
   SchemeTag4,
   SchemeTag5,
+  SchemeTag6,
   SchemeLayout,
   TabSel,
   TabNorm,
@@ -655,7 +657,7 @@ void buttonpress(XEvent *e) {
   else
          click = ClkWinTitle;
   }
-    	
+
 	if(ev->window == selmon->tabwin) {
 		i = 0; x = 0;
 		for(c = selmon->clients; c; c = c->next){
@@ -1557,9 +1559,9 @@ geticonprop(Window win, unsigned int *picw, unsigned int *pich)
 	unsigned long n, extra, *p = NULL;
 	Atom real;
 
-	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType, 
+	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType,
 						   &real, &format, &n, &extra, (unsigned char **)&p) != Success)
-		return None; 
+		return None;
 	if (n == 0 || format != 32) { XFree(p); return None; }
 
 	unsigned long *bstp = NULL;
@@ -1893,7 +1895,7 @@ int gettextprop(Window w, Atom atom, char *text, unsigned int size) {
     strncpy(text, (char *)name.value, size - 1);
   } else if (XmbTextPropertyToTextList(dpy, &name, &list, &n) >= Success && n > 0 && *list) {
 	  strncpy(text, *list, size - 1);
-	  XFreeStringList(list);  
+	  XFreeStringList(list);
   }
   text[size - 1] = '\0';
   XFree(name.value);
@@ -1980,7 +1982,7 @@ hide(Client *c) {
 }
 
 void incnmaster(const Arg *arg) {
-  selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = MAX(selmon->nmaster + arg->i, 0);
+  selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = !selmon->nmaster;
   arrange(selmon);
 }
 
